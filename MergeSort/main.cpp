@@ -1,59 +1,64 @@
-//
-//  main.cpp
-//  MergeSort
-//
-//  Created by Momchil Tsanov on 5.11.24.
-//
-
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
 
 using namespace std;
 
-void mergeSort(int arr[], int low, int high);
+void merge(long arr[], long low, long mid, long high);
+void mergeSort(long arr[], long low, long high);
+void fillRandomArray(long arr[], int size);
 
-int main(int argc, const char * argv[]) {
-
-    int arr[] {4,1,9,3,6,2,11,8,7,10};
-    for (int i = 0; i < 10; i++)
-        cout << arr[i] << " ";
-    cout << endl;
-
-    mergeSort(arr, 0, 9);
-
-
-    for (int i = 0; i < 10; i++)
-        cout << arr[i] << " ";
-    cout << endl;
-
+void fillRandomArray(long arr[], int size) {
+    srand(static_cast<unsigned long>(time(0)));
+    for (long i = 0; i < size; i++) {
+        arr[i] = rand() % 30000;
+    }
 }
 
-void merge(int arr[], int low, int mid, int high){
+int main(int argc, const char* argv[]) {
+    for (long size = 10000; size <= 100000; size += 10000) {
+        long* arr = new long[size];
+        fillRandomArray(arr, size);
 
+        clock_t c0 = clock();
+        mergeSort(arr, 0, size - 1); // Sort the array
+        clock_t c1 = clock();
 
-    int n1 = mid - low + 1;
-    int n2 = high - mid;
+        cout << "Time taken to sort " << size << " elements: "
+             << static_cast<float>(c1 - c0) / CLOCKS_PER_SEC << " seconds" << endl;
 
-    int a[n1], b[n2];
-    for (int i = 0; i < n1; i++)
+        delete[] arr;
+    }
+}
+
+void merge(long arr[], long low, long mid, long high) {
+    long n1 = mid - low + 1;
+    long n2 = high - mid;
+
+    long* a = new long[n1];
+    long* b = new long[n2];
+
+    for (long i = 0; i < n1; i++) {
         a[i] = arr[low + i];
-    for (int j = 0; j < n2; j++)
-        b[j] = arr[mid + 1 + j];
+    }
 
-    int i = 0, j = 0;
-    int k = low;
+    for (long j = 0; j < n2; j++) {
+        b[j] = arr[mid + 1 + j];
+    }
+
+    long i = 0, j = 0;
+    long k = low;
 
     while (i < n1 && j < n2) {
         if (a[i] <= b[j]) {
             arr[k] = a[i];
             i++;
-        }
-        else {
+        } else {
             arr[k] = b[j];
             j++;
         }
         k++;
     }
-
 
     while (i < n1) {
         arr[k] = a[i];
@@ -67,23 +72,15 @@ void merge(int arr[], int low, int mid, int high){
         k++;
     }
 
+    delete[] a; // Free allocated memory
+    delete[] b; // Free allocated memory
 }
 
-
-
-void mergeSort(int arr[], int low, int high) {
-
-
-    if (low >= high){
-        return;
-    }
-
+void mergeSort(long arr[], long low, long high) {
     if (low < high) {
-        int mid = (low + high) / 2;
+        long mid = (low + high) / 2;
         mergeSort(arr, low, mid);
-        mergeSort(arr, mid+1, high);
+        mergeSort(arr, mid + 1, high);
         merge(arr, low, mid, high);
     }
-
-
 }
