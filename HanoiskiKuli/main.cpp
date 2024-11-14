@@ -7,9 +7,9 @@
 
 using namespace std;
 
-void displayPegs(const vector<int>& from, const vector<int>& to, const vector<int>& help) {
+void displayCols(const vector<int>& from, const vector<int>& to, const vector<int>& help) {
     cout << "Segashen vid:" << endl;
-    cout << "Peg A: ";
+    cout << "col A: ";
     for (int disk : from) {
         cout << disk << " ";
     }
@@ -33,14 +33,14 @@ void hanoi(int size, vector<int>& from, vector<int>& to, vector<int>& help) {
         to.push_back(from.back());
         from.pop_back();
         cout << "Premesti edin disk ot A na C" << endl;
-        displayPegs(from, to, help);
+        displayCols(from, to, help);
     } else {
         hanoi(size - 1, from, help, to);
 
         to.push_back(from.back());
         from.pop_back();
         cout << "Premesti edin disk ot A na C" << endl;
-        displayPegs(from, to, help);
+        displayCols(from, to, help);
 
         hanoi(size - 1, help, to, from);
     }
@@ -54,7 +54,7 @@ int main() {
         pegA.push_back(i);
     }
 
-    displayPegs(pegA, pegB, pegC);
+    displayCols(pegA, pegB, pegC);
 
     hanoi(numberOfDisks, pegA, pegC, pegB);
 
