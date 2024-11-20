@@ -81,7 +81,7 @@ void generate_random_array(std::vector<int>& arr, int size) {
 }
 
 int main() {
-    srand(static_cast<unsigned>(time(0)));
+    srand(static_cast<unsigned>(time(nullptr)));
 
     const int MAX_SIZE = 10000;
     const int STEP = 1000;
