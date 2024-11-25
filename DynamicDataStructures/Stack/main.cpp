@@ -71,7 +71,6 @@ int main() {
     displayStack(L);
 
 
-    //изпразване на целия стек
     while (L != NULL) {
         pop(&L);
     }
