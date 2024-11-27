@@ -1,10 +1,11 @@
 //
-// Created by Momchil Tsanov on 20.11.24.
+// Created by Momchil Tsanov on 27.11.24.
 //
 
 #include <iostream>
 #include <cstdlib>
 
+using namespace std;
 
 struct stack_list {
     char letter;
@@ -27,7 +28,6 @@ void push(stack_list** top, const char value) {
 }
 
 
-
 char pop(stack_list** top) { //указател към указателя на върха на стека
     if (*top == NULL) {
         std::cerr << "Стекът е празен!" << std::endl;
@@ -37,7 +37,7 @@ char pop(stack_list** top) { //указател към указателя на �
     stack_list* temp = *top;
     char poppedValue = temp->letter; // Запазваме стойността
     *top = (*top)->next; // Обновяване на указателя на стека
-    delete temp;
+    free(temp); // Освобождаване на паметта за премахнатия елемент
     return poppedValue;
 }
 
@@ -54,6 +54,17 @@ void displayStack(stack_list* top) {
     }
     std::cout << std::endl;
 }
+void printsStackNaopaki(stack_list* tuk) {
+
+    if (tuk->next != NULL) {
+        printsStackNaopaki(tuk->next);
+    } else {
+        cout << "krai" << endl;
+    }
+    cout << tuk->letter << " ";
+
+}
+
 
 int main() {
     stack_list* L = NULL;
@@ -68,16 +79,21 @@ int main() {
 
     displayStack(L);
 
+
+
+
     std::cout << "Премахнат елемент: " << pop(&L) << std::endl;
     std::cout << "Премахнат елемент: " << pop(&L) << std::endl;
 
     displayStack(L);
 
-    while (L != NULL) {
-        pop(&L);
-    }
 
-    displayStack(L);
+    printsStackNaopaki(L);
+
+    // while (L != NULL) {
+    //     pop(&L);
+    // }
+
 
     return 0;
 }

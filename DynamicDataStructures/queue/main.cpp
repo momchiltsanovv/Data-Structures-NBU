@@ -1,11 +1,12 @@
 //
-// Created by Momchil Tsanov on 20.11.24.
+// Created by Momchil Tsanov on 27.11.24.
 //
 
 #include <iostream>
-#include <cstdlib>
 
+//TODO: make queue change push to work for queue
 
+using namespace std;
 struct stack_list {
     char letter;
     stack_list* next;
