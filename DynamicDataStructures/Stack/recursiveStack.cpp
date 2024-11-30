@@ -14,14 +14,12 @@ struct stack_list {
 
 
 void push(stack_list** top, const char value) {
-    auto* newElement = static_cast<stack_list*>(malloc(sizeof(stack_list)));
+    stack_list* newElement = static_cast<stack_list*>(malloc(sizeof(stack_list)));
     //malloc ще е null ако не се задели успешно памет
     if (newElement == NULL) {
         std::cerr << "Грешка при заделяне на памет!" << std::endl;
         return;
     }
-
-
     newElement->letter = value; // Попълване на стойността на елемента
     newElement->next = *top; // Насочване на next да сочи към върха на стека
     *top = newElement; // Обновяване на указателя на стека да сочи към новия елемент, който току-що е добавен
@@ -55,16 +53,13 @@ void displayStack(stack_list* top) {
     std::cout << std::endl;
 }
 void printsStackNaopaki(stack_list* tuk) {
-
     if (tuk->next != NULL) {
         printsStackNaopaki(tuk->next);
     } else {
         cout << "krai" << endl;
     }
     cout << tuk->letter << " ";
-
 }
-
 
 int main() {
     stack_list* L = NULL;

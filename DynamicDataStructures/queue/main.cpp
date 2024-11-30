@@ -12,7 +12,6 @@ struct stack_list {
     stack_list* next;
 };
 
-
 void push(stack_list** top, const char value) {
     auto* newElement = static_cast<stack_list*>(malloc(sizeof(stack_list)));
     //malloc ще е null ако не се задели успешно памет

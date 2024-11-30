@@ -40,7 +40,6 @@ char pop(stack_list** top) { //указател към указателя на �
     delete temp;
     return poppedValue;
 }
-
 void displayStack(stack_list* top) {
     if (top == NULL) {
         std::cout << "Стекът е празен!" << std::endl;
