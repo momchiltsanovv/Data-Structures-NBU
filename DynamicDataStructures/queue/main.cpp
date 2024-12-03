@@ -3,81 +3,92 @@
 //
 
 #include <iostream>
+#include <cstdlib>
 
-//TODO: make queue change push to work for queue
-
-using namespace std;
-struct stack_list {
+struct queue_node {
     char letter;
-    stack_list* next;
+    queue_node* next;
 };
 
-void push(stack_list** top, const char value) {
-    auto* newElement = static_cast<stack_list*>(malloc(sizeof(stack_list)));
-    //malloc ще е null ако не се задели успешно памет
+void push(queue_node** front, queue_node** rear, const char value) {
+    auto* newElement = static_cast<queue_node*>(malloc(sizeof(queue_node)));
+
     if (newElement == NULL) {
-        std::cerr << "Грешка при заделяне на памет!" << std::endl;
+        std::cerr << "Memory allocation error!" << std::endl;
         return;
     }
 
+    newElement->letter = value; // попълване на стойността на новия елемент
+    newElement->next = NULL; // следвашия елемент ТРЯБВА да е NULL
 
-    newElement->letter = value; // Попълване на стойността на елемента
-    newElement->next = *top; // Насочване на next да сочи към върха на стека
-    *top = newElement; // Обновяване на указателя на стека да сочи към новия елемент, който току-що е добавен
+    if (*rear == NULL) {
+        // Ако е празeн и front и rear ще сочат към новия елемент
+        *front = *rear = newElement;
+    }
+    else {
+        // насочване на новия елемент към rear и обновяване на rear
+        (*rear)->next = newElement;
+        *rear = newElement;
+    }
 }
 
-
-
-char pop(stack_list** top) { //указател към указателя на върха на стека
-    if (*top == NULL) {
-        std::cerr << "Стекът е празен!" << std::endl;
+char pop(queue_node** front) {
+    if (*front == NULL) {
+        std::cerr << "Queue is empty!" << std::endl;
         return '\0';
     }
 
-    stack_list* temp = *top;
-    char poppedValue = temp->letter; // Запазваме стойността
-    *top = (*top)->next; // Обновяване на указателя на стека
-    delete temp;
-    return poppedValue;
+    queue_node* temp = *front;
+    char dequeuedValue = temp->letter; //запазвам стойносттайй
+    *front = (*front)->next; // преместване на front към следващия елемент
+
+
+    if (*front == NULL) {
+        std::cerr << "Queue is now empty!" << std::endl;
+    }
+
+    free(temp);
+    return dequeuedValue;
 }
 
-void displayStack(stack_list* top) {
-    if (top == NULL) {
-        std::cout << "Стекът е празен!" << std::endl;
+void displayQueue(queue_node* front) {
+    if (front == NULL) {
+        std::cout << "Queue is empty!" << std::endl;
         return;
     }
 
-    std::cout << "Елементи в стека: ";
-    while (top != NULL) {
-        std::cout << top->letter << " ";
-        top = top->next;
+    std::cout << "Elements in the queue: ";
+    while (front != NULL) {
+        std::cout << front->letter << " ";
+        front = front->next;
     }
     std::cout << std::endl;
 }
 
 int main() {
-    stack_list* L = NULL;
+    queue_node* front = NULL;
+    queue_node* rear = NULL;
 
-    push(&L, 'A');
-    push(&L, 'B');
-    push(&L, 'C');
-    push(&L, 'd');
-    push(&L, 'e');
-    push(&L, 'b');
-    push(&L, 'g');
+    push(&front, &rear, 'A');
+    push(&front, &rear, 'B');
+    push(&front, &rear, 'C');
+    push(&front, &rear, 'd');
+    push(&front, &rear, 'e');
+    push(&front, &rear, 'b');
+    push(&front, &rear, 'g');
 
-    displayStack(L);
+    displayQueue(front);
 
-    std::cout << "Премахнат елемент: " << pop(&L) << std::endl;
-    std::cout << "Премахнат елемент: " << pop(&L) << std::endl;
+    std::cout << "Dequeued element: " << pop(&front) << std::endl;
+    std::cout << "Dequeued element: " << pop(&front) << std::endl;
 
-    displayStack(L);
+    displayQueue(front);
 
-    while (L != NULL) {
-        pop(&L);
+    while (front != NULL) {
+        pop(&front);
     }
 
-    displayStack(L);
+    displayQueue(front);
 
     return 0;
 }
