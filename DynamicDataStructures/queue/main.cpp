@@ -5,13 +5,13 @@
 #include <iostream>
 #include <cstdlib>
 
-struct queue_node {
+struct queue {
     char letter;
-    queue_node* next;
+    queue* next;
 };
 
-void push(queue_node** front, queue_node** rear, const char value) {
-    auto* newElement = static_cast<queue_node*>(malloc(sizeof(queue_node)));
+void push(queue** front, queue** rear, const char value) {
+    auto* newElement = static_cast<queue*>(malloc(sizeof(queue)));
 
     if (newElement == NULL) {
         std::cerr << "Memory allocation error!" << std::endl;
@@ -32,13 +32,13 @@ void push(queue_node** front, queue_node** rear, const char value) {
     }
 }
 
-char pop(queue_node** front) {
+char pop(queue** front) {
     if (*front == NULL) {
         std::cerr << "Queue is empty!" << std::endl;
         return '\0';
     }
 
-    queue_node* temp = *front;
+    queue* temp = *front;
     char dequeuedValue = temp->letter; //запазвам стойносттайй
     *front = (*front)->next; // преместване на front към следващия елемент
 
@@ -51,7 +51,7 @@ char pop(queue_node** front) {
     return dequeuedValue;
 }
 
-void displayQueue(queue_node* front) {
+void displayQueue(queue* front) {
     if (front == NULL) {
         std::cout << "Queue is empty!" << std::endl;
         return;
@@ -66,8 +66,8 @@ void displayQueue(queue_node* front) {
 }
 
 int main() {
-    queue_node* front = NULL;
-    queue_node* rear = NULL;
+    queue* front = NULL;
+    queue* rear = NULL;
 
     push(&front, &rear, 'A');
     push(&front, &rear, 'B');
