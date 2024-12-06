@@ -63,7 +63,7 @@ int main() {
     push(&L, 'c');
     push(&L, 'h');
     push(&L, 'i');
-    push(&L, 'l')t ;
+    push(&L, 'l');
 
     displayStack(L);
 
