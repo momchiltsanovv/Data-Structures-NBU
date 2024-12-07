@@ -27,7 +27,6 @@ void push(linked_list** head, const char value) {
 }
 
 
-
 char pop(linked_list** top) { //указател към указателя на върха на стека
     if (*top == NULL) {
         std::cerr << "Стекът е празен!" << std::endl;
@@ -40,6 +39,7 @@ char pop(linked_list** top) { //указател към указателя на 
     delete temp;
     return poppedValue;
 }
+
 void displayStack(linked_list* top) {
     if (top == NULL) {
         std::cout << "Стекът е празен!" << std::endl;

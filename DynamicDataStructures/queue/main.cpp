@@ -14,19 +14,17 @@ void push(queue** front, queue** rear, const char value) {
     auto* newElement = static_cast<queue*>(malloc(sizeof(queue)));
 
     if (newElement == NULL) {
-        std::cerr << "Memory allocation error!" << std::endl;
+        std::cerr << " neuspeshno zadelenq pamet!" << std::endl;
         return;
     }
 
-    newElement->letter = value; // попълване на стойността на новия елемент
-    newElement->next = NULL; // следвашия елемент ТРЯБВА да е NULL
+    newElement->letter = value;
+    newElement->next = NULL;
 
     if (*rear == NULL) {
-        // Ако е празeн и front и rear ще сочат към новия елемент
         *front = *rear = newElement;
     }
     else {
-        // насочване на новия елемент към rear и обновяване на rear
         (*rear)->next = newElement;
         *rear = newElement;
     }
@@ -39,12 +37,12 @@ char pop(queue** front) {
     }
 
     queue* temp = *front;
-    char dequeuedValue = temp->letter; //запазвам стойносттайй
-    *front = (*front)->next; // преместване на front към следващия елемент
+    char dequeuedValue = temp->letter;
+    *front = (*front)->next;
 
 
     if (*front == NULL) {
-        std::cerr << "Queue is now empty!" << std::endl;
+        std::cerr << " Spisuka e prazen" << std::endl;
     }
 
     free(temp);
