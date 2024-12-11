@@ -64,25 +64,15 @@ void printsStackNaopaki(linked_list* tuk) {
 int main() {
     linked_list* L = NULL;
 
-    push(&L, 'A');
-    push(&L, 'B');
-    push(&L, 'C');
-    push(&L, 'd');
-    push(&L, 'e');
-    push(&L, 'b');
-    push(&L, 'g');
+    push(&L, 'M');
+    push(&L, 'o');
+    push(&L, 'm');
+    push(&L, 'c');
+    push(&L, 'h');
+    push(&L, 'i');
+    push(&L, 'l');
 
     displayStack(L);
-
-
-
-
-    std::cout << "Премахнат елемент: " << pop(&L) << std::endl;
-    std::cout << "Премахнат елемент: " << pop(&L) << std::endl;
-
-    displayStack(L);
-
-
     printsStackNaopaki(L);
 
     // while (L != NULL) {
