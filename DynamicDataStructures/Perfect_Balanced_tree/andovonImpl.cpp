@@ -84,4 +84,5 @@ int main() {
     postfiksno(root);
     free(root);
     return 0;
+    
 }
