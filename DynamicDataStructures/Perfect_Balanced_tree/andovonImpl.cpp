@@ -35,6 +35,7 @@ void print(durvo* root, int space) {
     space += count;
     print(root->right, space);
     cout << endl;
+
     for (int i = count; i < space; i++)
         cout << " ";
     cout << root->data << "\n";
@@ -49,6 +50,7 @@ void infiksno(durvo* root) {
     cout << root->data << " ";
     infiksno(root->right);
 }
+
 void prefiksno(durvo* root) {
     if (root == NULL)
         return;
@@ -66,7 +68,6 @@ void postfiksno(durvo* root) {
 }
 
 
-
 int main() {
     int size;
     cin >> size;
@@ -75,14 +76,16 @@ int main() {
     cout << endl;
     cout << endl;
     cout << endl;
+    cout << " инфиксно " << endl;
     infiksno(root);
     cout << endl;
     cout << endl;
+    cout << " префиксно " << endl;
     prefiksno(root);
     cout << endl;
     cout << endl;
+    cout << " постфиксно " << endl;
     postfiksno(root);
     free(root);
     return 0;
-    
 }
