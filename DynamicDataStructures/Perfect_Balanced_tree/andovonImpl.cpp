@@ -11,7 +11,7 @@ struct vuzel {
     vuzel* right;
 };
 
-vuzel* ibd(int& size) {
+vuzel* ibd(const int& size) {
     int liqvaChast = size / 2;
     int dqsnqChast = size - liqvaChast - 1;
     vuzel* novo = new vuzel;
@@ -27,7 +27,7 @@ vuzel* ibd(int& size) {
     return novo;
 }
 
-void print(vuzel* root, int space) {
+void print(const vuzel* root, int space) {
     int count = 10;
     if (root == NULL)
         return;

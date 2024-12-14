@@ -14,7 +14,7 @@ struct vuzel {
     vuzel* right;
 };
 
-vuzel* ibd(int& size) {
+vuzel* ibd(const int& size) {
     int liqvaChast = size / 2;
     int dqsnqChast = size - liqvaChast - 1;
     vuzel* novo = new vuzel;
@@ -56,7 +56,7 @@ vuzel* find(vuzel* koren, int turseno) { // lokaciq
 }
 
 
-void print(vuzel* root, int space) {
+void print(const vuzel* root, int space) {
     int count = 10;
     if (root == NULL)
         return;
@@ -124,7 +124,6 @@ int main() {
 
     vuzel* result = find(root, x);
     cout << result << endl;
-
 
     free(root);
     return 0;
