@@ -6,7 +6,7 @@ using namespace std;
 
 
 struct vuzel {
-    char data;
+    int data;
     vuzel* left;
     vuzel* right;
 };
