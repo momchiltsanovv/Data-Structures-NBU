@@ -81,12 +81,14 @@ void print(po root, int space) {
     print(root->left, space);
 }
 
-void trii(po& root, int toDel) {
+void trii(int toDel)
+{
+    po loc = root; // Позиция на елемента за триене (ако го намерим)
+    po tati = NULL; // "Татко" = родител на loc
+    po pomosht = NULL;
     po del = NULL;
-    po loc = root;
-    po tati = NULL;
 
-    // Find the node to delete and its parent
+    // 1) Търсим елемента, който ще трием
     while (loc != NULL && loc->data != toDel) {
         tati = loc;
         if (toDel > loc->data) {
@@ -97,57 +99,82 @@ void trii(po& root, int toDel) {
         }
     }
 
+    // Ако такъв елемент няма в дървото, приключваме
     if (loc == NULL) {
         cout << "Nqma takuv element\n";
         return;
     }
 
-    // Case 1: Node to be deleted is a leaf node
-    if (loc->left == NULL && loc->right == NULL) {
-        if (tati == NULL) {
-            root = NULL;
-        }
-        else if (tati->left == loc) {
-            tati->left = NULL;
+    //
+    // 2) Проверяваме колко деца има loc
+    //
+
+    // ----- Случай A: Няма деца (loc е лист) -----
+    if (loc->left == NULL && loc->right == NULL)
+    {
+        del = loc;
+
+        // Ако loc не е корен
+        if (tati != NULL) {
+            // "Откачаме" го от родителя
+            if (tati->left == loc)
+                tati->left = NULL;
+            else
+                tati->right = NULL;
         }
         else {
-            tati->right = NULL;
+            // Ако loc е корен, дървото става празно
+            ::root = NULL;
         }
-        delete loc;
+
+        delete del;
     }
-    // Case 2: Node to be deleted has one child
-    else if (loc->left == NULL || loc->right == NULL) {
-        po child = loc->left != NULL ? loc->left : loc->right;
-        if (tati == NULL) {
+    // ----- Случай B: Точно 1 дете -----
+    else if (loc->left == NULL || loc->right == NULL)
+    {
+        // Намираме кое дете съществува (лявото или дясното)
+        po child = (loc->left != NULL) ? loc->left : loc->right;
+
+        // Ако loc не е корен
+        if (tati != NULL) {
+            if (tati->left == loc)
+                tati->left = child;
+            else
+                tati->right = child;
+        }
+        else {
+            // loc е корен, пренасочваме root към child
             root = child;
         }
-        else if (tati->left == loc) {
-            tati->left = child;
-        }
-        else {
-            tati->right = child;
-        }
+
         delete loc;
     }
-    // Case 3: Node to be deleted has two children
-    else {
-        po predParent = loc;
-        po pred = loc->left;
-        while (pred->right != NULL) {
-            predParent = pred;
-            pred = pred->right;
+    // ----- Случай C: Две деца -----
+    else
+    {
+        // Ще заместим loc->data с "най-големия" елемент от лявото поддърво
+        // (може да използваме и "най-малкия" елемент от дясното поддърво, без значение).
+        pomosht = loc->left;
+        po parentOfPomosht = loc; // родител на pomosht
+
+        // Търсим най-дясното дете в лявото поддърво
+        while (pomosht->right != NULL) {
+            parentOfPomosht = pomosht;
+            pomosht = pomosht->right;
         }
-        loc->data = pred->data;
-        if (predParent->left == pred) {
-            predParent->left = pred->left;
-        }
-        else {
-            predParent->right = pred->left;
-        }
-        delete pred;
+
+        // Копираме стойността от pomosht в loc
+        loc->data = pomosht->data;
+
+        // Сега изтриваме pomosht (той има най-много ляво дете)
+        if (parentOfPomosht->right == pomosht)
+            parentOfPomosht->right = pomosht->left;
+        else
+            parentOfPomosht->left = pomosht->left;
+
+        delete pomosht;
     }
 }
-
 
 int main() {
     char answer;
@@ -178,7 +205,7 @@ int main() {
     while (answer != 'n') {
         cout << "Kogo triesh?\n";
         cin >> x;
-        trii(root, x);
+        trii(x);
         cout << "Eto durvoto:\n";
         print(root, 5);
         cout << "She triish li?\n";
