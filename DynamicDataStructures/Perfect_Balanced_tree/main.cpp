@@ -9,15 +9,15 @@ struct node {
     po left;
     po right;
 };
+po root = NULL;
 
 po ibd(int n) {
     int nl = n / 2;
     int nd = n - nl - 1;
     po p = new node;
     if (n != 0) {
-        cout << "Enter data: ";
-        cin >> p->data;
         p->left = ibd(nl);
+        cin >> p->data;
         p->right = ibd(nd);
     }
     else {
@@ -43,10 +43,11 @@ void print(po root, int space) {
 
 
 int main() {
-    int n;
+    int size;
     po root;
-    cin >> n; //broi vuzli
-    root = ibd(n);
+    cout << "Въведи размер: ";
+    cin >> size;
+    root = ibd(size);
     print(root, 5);
 
     free(root);

@@ -6,7 +6,7 @@ int COUNT;
 typedef struct node* po;
 
 struct node {
-    int data;
+    char data;
     po left;
     po right;
 };
@@ -111,14 +111,14 @@ void trii(po root, int toDel) {
 
 
 
-
+//(а / b + c )*(( d + e) - 3*h)
 
 }
 
 
 int main() {
     char answer;
-    int x;
+    char x;
     cout << "She vmukvash li? (y/n): ";
     cin >> answer;
     while (answer != 'n') {

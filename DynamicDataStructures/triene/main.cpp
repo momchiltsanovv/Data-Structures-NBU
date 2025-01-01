@@ -124,7 +124,7 @@ void trii(int toDel)
         }
         else {
             // Ако loc е корен, дървото става празно
-            ::root = NULL;
+            root = NULL;
         }
 
         delete del;

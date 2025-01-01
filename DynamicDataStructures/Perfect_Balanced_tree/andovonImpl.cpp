@@ -78,6 +78,23 @@ int main() {
     cout << endl;
     cout << " инфиксно " << endl;
     infiksno(root);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     cout << endl;
     cout << endl;
     cout << " префиксно " << endl;
