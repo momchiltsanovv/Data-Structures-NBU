@@ -81,8 +81,7 @@ void print(po root, int space) {
     print(root->left, space);
 }
 
-void trii(int toDel)
-{
+void trii(int toDel) {
     po loc = root; // Позиция на елемента за триене (ако го намерим)
     po tati = NULL; // "Татко" = родител на loc
     po pomosht = NULL;
@@ -110,8 +109,7 @@ void trii(int toDel)
     //
 
     // ----- Случай A: Няма деца (loc е лист) -----
-    if (loc->left == NULL && loc->right == NULL)
-    {
+    if (loc->left == NULL && loc->right == NULL) {
         del = loc;
 
         // Ако loc не е корен
@@ -130,8 +128,7 @@ void trii(int toDel)
         delete del;
     }
     // ----- Случай B: Точно 1 дете -----
-    else if (loc->left == NULL || loc->right == NULL)
-    {
+    else if (loc->left == NULL || loc->right == NULL) {
         // Намираме кое дете съществува (лявото или дясното)
         po child = (loc->left != NULL) ? loc->left : loc->right;
 
@@ -150,8 +147,7 @@ void trii(int toDel)
         delete loc;
     }
     // ----- Случай C: Две деца -----
-    else
-    {
+    else {
         // Ще заместим loc->data с "най-големия" елемент от лявото поддърво
         // (може да използваме и "най-малкия" елемент от дясното поддърво, без значение).
         pomosht = loc->left;
