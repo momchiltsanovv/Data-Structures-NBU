@@ -82,12 +82,12 @@ void print(po root, int space) {
 }
 
 void trii(int toDel) {
-    po loc = root; // Позиция на елемента за триене (ако го намерим)
-    po tati = NULL; // "Татко" = родител на loc
+    po loc = root;
+    po tati = NULL;
     po pomosht = NULL;
     po del = NULL;
 
-    // 1) Търсим елемента, който ще трием
+
     while (loc != NULL && loc->data != toDel) {
         tati = loc;
         if (toDel > loc->data) {
@@ -98,41 +98,34 @@ void trii(int toDel) {
         }
     }
 
-    // Ако такъв елемент няма в дървото, приключваме
+
     if (loc == NULL) {
         cout << "Nqma takuv element\n";
         return;
     }
 
-    //
-    // 2) Проверяваме колко деца има loc
-    //
 
-    // ----- Случай A: Няма деца (loc е лист) -----
     if (loc->left == NULL && loc->right == NULL) {
         del = loc;
 
-        // Ако loc не е корен
+
         if (tati != NULL) {
-            // "Откачаме" го от родителя
             if (tati->left == loc)
                 tati->left = NULL;
             else
                 tati->right = NULL;
         }
         else {
-            // Ако loc е корен, дървото става празно
             root = NULL;
         }
 
         delete del;
     }
-    // ----- Случай B: Точно 1 дете -----
+
     else if (loc->left == NULL || loc->right == NULL) {
-        // Намираме кое дете съществува (лявото или дясното)
         po child = (loc->left != NULL) ? loc->left : loc->right;
 
-        // Ако loc не е корен
+
         if (tati != NULL) {
             if (tati->left == loc)
                 tati->left = child;
@@ -140,29 +133,25 @@ void trii(int toDel) {
                 tati->right = child;
         }
         else {
-            // loc е корен, пренасочваме root към child
             root = child;
         }
 
         delete loc;
     }
-    // ----- Случай C: Две деца -----
-    else {
-        // Ще заместим loc->data с "най-големия" елемент от лявото поддърво
-        // (може да използваме и "най-малкия" елемент от дясното поддърво, без значение).
-        pomosht = loc->left;
-        po parentOfPomosht = loc; // родител на pomosht
 
-        // Търсим най-дясното дете в лявото поддърво
+    else {
+        pomosht = loc->left;
+        po parentOfPomosht = loc;
+
         while (pomosht->right != NULL) {
             parentOfPomosht = pomosht;
             pomosht = pomosht->right;
         }
 
-        // Копираме стойността от pomosht в loc
+
         loc->data = pomosht->data;
 
-        // Сега изтриваме pomosht (той има най-много ляво дете)
+
         if (parentOfPomosht->right == pomosht)
             parentOfPomosht->right = pomosht->left;
         else
