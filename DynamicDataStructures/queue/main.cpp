@@ -1,7 +1,3 @@
-//
-// Created by Momchil Tsanov on 27.11.24.
-//
-
 #include <iostream>
 #include <cstdlib>
 
@@ -39,7 +35,6 @@ char pop(queue** front) {
     queue* temp = *front;
     char dequeuedValue = temp->letter;
     *front = (*front)->next;
-
 
     if (*front == NULL) {
         std::cerr << " Spisuka e prazen" << std::endl;
@@ -79,13 +74,11 @@ int main() {
 
     std::cout << "Dequeued element: " << pop(&front) << std::endl;
     std::cout << "Dequeued element: " << pop(&front) << std::endl;
-
     displayQueue(front);
 
     while (front != NULL) {
         pop(&front);
     }
-
     displayQueue(front);
 
     return 0;

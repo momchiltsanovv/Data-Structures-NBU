@@ -22,38 +22,35 @@ po findAndBuild(int turseno) {
         root->right = NULL;
         return root;
     }
-    else {
-        po loc = root;
-        po insert = NULL;
-        while (loc != NULL && loc->data != turseno) {
-            insert = loc;
-            if (turseno > loc->data) {
-                loc = loc->right;
-            }
-            else {
-                loc = loc->left;
-            }
-        }
-        if (loc == NULL) {
-            cout << "Zakacham " << endl;
-            loc = new node;
-            loc->data = turseno;
-            loc->left = NULL;
-            loc->right = NULL;
-            if (turseno < insert->data) {
-                insert->left = loc;
-            }
-            else {
-                insert->right = loc;
-            }
+    po loc = root;
+    po insert = NULL;
+    while (loc != NULL && loc->data != turseno) {
+        insert = loc;
+        if (turseno > loc->data) {
+            loc = loc->right;
         }
         else {
-            cout << "Namerih " << turseno << endl;
+            loc = loc->left;
         }
-        return loc;
     }
+    if (loc == NULL) {
+        cout << "Zakacham " << endl;
+        loc = new node;
+        loc->data = turseno;
+        loc->left = NULL;
+        loc->right = NULL;
+        if (turseno < insert->data) {
+            insert->left = loc;
+        }
+        else {
+            insert->right = loc;
+        }
+    }
+    else {
+        cout << "Namerih " << turseno << endl;
+    }
+    return loc;
 }
-
 
 void infixPrint(po root) {
     if (root != NULL) {
@@ -65,7 +62,6 @@ void infixPrint(po root) {
         cout << " ";
     }
 }
-
 
 void print(po root, int space) {
     COUNT = 10;
@@ -87,7 +83,6 @@ void trii(int toDel) {
     po pomosht = NULL;
     po del = NULL;
 
-
     while (loc != NULL && loc->data != toDel) {
         tati = loc;
         if (toDel > loc->data) {
@@ -98,16 +93,13 @@ void trii(int toDel) {
         }
     }
 
-
     if (loc == NULL) {
         cout << "Nqma takuv element\n";
         return;
     }
 
-
     if (loc->left == NULL && loc->right == NULL) {
         del = loc;
-
 
         if (tati != NULL) {
             if (tati->left == loc)
@@ -118,13 +110,11 @@ void trii(int toDel) {
         else {
             root = NULL;
         }
-
         delete del;
     }
 
     else if (loc->left == NULL || loc->right == NULL) {
         po child = (loc->left != NULL) ? loc->left : loc->right;
-
 
         if (tati != NULL) {
             if (tati->left == loc)
@@ -148,9 +138,7 @@ void trii(int toDel) {
             pomosht = pomosht->right;
         }
 
-
         loc->data = pomosht->data;
-
 
         if (parentOfPomosht->right == pomosht)
             parentOfPomosht->right = pomosht->left;
@@ -176,7 +164,6 @@ int main() {
         cin >> answer;
     }
 
-
     cout << "Finalno durvo:\n";
     print(root, 5);
 
@@ -196,7 +183,6 @@ int main() {
         cout << "She triish li?\n";
         cin >> answer;
     }
-
 
     return 0;
 }
