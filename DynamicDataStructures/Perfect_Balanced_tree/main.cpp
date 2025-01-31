@@ -16,8 +16,8 @@ po ibd(int n) {
     int nd = n - nl - 1;
     po p = new node;
     if (n != 0) {
-        p->left = ibd(nl);
         cin >> p->data;
+        p->left = ibd(nl);
         p->right = ibd(nd);
     }
     else {

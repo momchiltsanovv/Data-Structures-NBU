@@ -1,36 +1,7 @@
 #include <iostream>
-#include <ctime>
-#include <cstdlib>
-
-using namespace std;
-
-void merge(long arr[], long low, long mid, long high);
-void mergeSort(long arr[], long low, long high);
-void fillRandomArray(long arr[], int size);
-
-void fillRandomArray(long arr[], int size) {
-    srand(static_cast<unsigned long>(time(0)));
-    for (long i = 0; i < size; i++) {
-        arr[i] = rand() % 30000;
-    }
-}
-
-int main(int argc, const char* argv[]) {
-    for (long size = 10000; size <= 100000; size += 10000) {
-        long* arr = new long[size];
-        fillRandomArray(arr, size);
-
-        clock_t c0 = clock();
-        mergeSort(arr, 0, size - 1); // Sort the array
-        clock_t c1 = clock();
-
-        cout << "Time taken to sort " << size << " elements: "
-             << static_cast<float>(c1 - c0) / CLOCKS_PER_SEC << " seconds" << endl;
-
-        delete[] arr;
-    }
-}
-
+//
+// Created by Momchil Tsanov on 31.01.25.
+//
 void merge(long arr[], const long low, const long mid, const long high) {
     const long n1 = mid - low + 1;
     const long n2 = high - mid;
@@ -53,7 +24,8 @@ void merge(long arr[], const long low, const long mid, const long high) {
         if (a[i] <= b[j]) {
             arr[k] = a[i];
             i++;
-        } else {
+        }
+        else {
             arr[k] = b[j];
             j++;
         }
@@ -78,9 +50,21 @@ void merge(long arr[], const long low, const long mid, const long high) {
 
 void mergeSort(long arr[], const long low, const long high) {
     if (low < high) {
-        long mid = (low + high) / 2;
+        const long mid = (low + high) / 2;
         mergeSort(arr, low, mid);
         mergeSort(arr, mid + 1, high);
         merge(arr, low, mid, high);
+    }
+}
+
+int main() {
+    long arr[] = {23, 1, 7, 9, 12, 34, 69, 2, 7, 9};
+    for (const long i : arr) {
+        std::cout << i << " ";
+    }
+    mergeSort(arr, 0, 10);
+    std::cout << std::endl;
+    for (const long i : arr) {
+        std::cout << i << " ";
     }
 }
